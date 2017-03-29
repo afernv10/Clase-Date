@@ -19,5 +19,8 @@ public class MainDate{
 		System.out.println(today.isSameDay(yesterday));
 
 		System.out.println(today.isSame(yesterday));
+
+		System.out.println(today.monthName());
+		System.out.println(today.monthSeason());
 	}
 }
