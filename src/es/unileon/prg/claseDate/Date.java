@@ -21,8 +21,8 @@ public class Date{
             this.month = month;
 		
 		this.year = year;
-	//}
-      }
+	}
+      //}
 
       public Date(int day, int month, int year) {
             
@@ -30,6 +30,13 @@ public class Date{
             this.month=month;
             this.year=year;
 	}
+
+      public Date(int randomYear){
+            
+            this.year= randomYear;
+            this.month= (int)Math.random()*(1-12)+12;
+            this.day= (int)Math.random()*(1-getNumDaysMonth(this.month))+ getNumDaysMonth(this.month);
+      }
 
 	int getDay(){
 		return this.day;
@@ -76,7 +83,24 @@ public class Date{
 	/*public String getMonthName(){
 		int 
 	}*/
+      public String booleanToWords(boolean checking){
 
+            String toWord=" ";
+            
+            if(checking==true){
+                  toWord= "Yes";
+            } else if(checking==false){
+                  toWord="No";
+            }
+
+            return toWord;
+      }
+
+
+      public String toString() {
+            
+            return this.day + "/" + this.month + "/" + this.year;
+      }
       
 
 	public String monthName() {
@@ -172,8 +196,8 @@ public class Date{
       }
 
      	
-      public boolean checkDay(){
-     		boolean correct=true;
+      public String checkDay(){
+     		String correct=" ";
 
      		switch(this.month){
      			
@@ -184,20 +208,26 @@ public class Date{
      			case 8:
      			case 10:
      			case 12:    if(this.day<0 || this.day>31){
-     					      correct=false;
+     					      correct="No";
+                              } else {
+                                    correct= "Yes"; 
                               }
      				break;
 
                   case 4:
                   case 6:
                   case 9:
-                  case 11:    if (this.day<0 || this.day>31){
-                                    correct=false;
+                  case 11:    if (this.day<0 || this.day>30){
+                                    correct="No";
+                              } else {
+                                    correct= "Yes"; 
                               }
                         break;
 
                   case 2:     if (this.day<0 || this.day>28){
-                                    correct=false;
+                                    correct="No";
+                              }else {
+                                    correct= "Yes"; 
                               }
                         break;
      			
@@ -205,6 +235,8 @@ public class Date{
 
             return correct;
      	}
+
+      
 
       public int monthsLeft(){
 
@@ -219,13 +251,9 @@ public class Date{
       }
 
       
-      public String toString() {
-            
-            return this.day + "/" + this.month + "/" + this.year;
-      }
-
       
-      public int getNumDaysMonth(){
+     
+      public int getNumDaysMonth(int month){
 
             int daysMonth=0;
 
@@ -253,39 +281,52 @@ public class Date{
             return daysMonth;
       }
 
-      void printMonthsSameAmountDays(){
+      
 
+      public String printMonthsSameAmountDays(){
+
+            Date monthsSolution=new Date(this.day,this.month,this.year);
+            StringBuffer printMonthsSameDays=new StringBuffer();
             for(int i=1;i<=12;i++){
 
-                  if(getNumDaysMonth()==getNumDaysMonth()){
+                  if(getNumDaysMonth(i)==getNumDaysMonth(this.month)){
 
-                        printMonthName();
+                        monthsSolution.setMonth(i);
+                        printMonthsSameDays.append("\n-->" + monthsSolution.printMonthName() + "\n");
                   }
             }
+
+            return printMonthsSameDays.toString();
       }
+
+      
 
       public String printDatesUntilEndMonth(){
 
             StringBuffer printDatesUntil=new StringBuffer();
 
-            for(int i=this.day;i<=getNumDaysMonth();i++){
+            for(int i=this.day;i<=getNumDaysMonth(this.month);i++){
 
-                  printDatesUntil.append(i + "/" + getMonth() + "/" + getYear());
+                  printDatesUntil.append("\n-->" + i + "/" + getMonth() + "/" + getYear() + "\n");
+                  
             }
+            
 
             return printDatesUntil.toString();
       }
 
+      
+
       public int countAllYearDaysSinceFirstOne(){
 
-            int month, counter=0;
+            int month,counter=0; //counter=this.day; 
 
             for(int i=1;i<this.month;i++){
                   
-                  counter=counter+getNumDaysMonth();
+                  counter=counter+getNumDaysMonth(i);
             }
             
-            counter=counter+this.day;
+            counter=counter+this.day; //si inicializáramos el contador en this.day quitaríamos esta línea
             return counter;
       }
 
@@ -296,8 +337,8 @@ public class Date{
             Date randomDate;
             boolean end=false;
             
-            while(!end){
-                  randomDate=new Date();
+            while(end=false){
+                  randomDate=new Date(this.year);
                   counter++;
                   if(this.equals(randomDate)){
                         end=true;
