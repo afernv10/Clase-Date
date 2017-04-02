@@ -6,12 +6,12 @@ public class MainDate{
 
 		Date today=new Date(28,03,2017); //ella lo tiene sin el new.....
 
-		try {
+		/*try {
 			today = new Date(99, 13,2017);
 			System.out.println(today);
 		} catch (DateException e) {
 			System.out.println(e.getMessage());
-		}
+		}*/
 
 
 		Date yesterday=new Date(27,03,2017);

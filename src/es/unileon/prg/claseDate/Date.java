@@ -7,22 +7,28 @@ public class Date{
 	private int month;
 	private int year;
 
-
-	public Date(int day, int month, int year) throws DateException{
+      public Date(){
+	//public Date(int day, int month, int year) throws DateException{
 		this.day = day;
 		
-		if(month < 1 || month > 12){ // primero se hacen las comprobaciones de todo lo que puede ir mal
+		/*if(month < 1 || month > 12){ // primero se hacen las comprobaciones de todo lo que puede ir mal
 			throw new DateException("Mes " + month + " no válido" +
 				" valores posibles entre 1 y 12.");
 		} else {
 			this.month = month;
-		}
+		}*/
+
+            this.month = month;
 		
 		this.year = year;
-	}
+	//}
+      }
 
-	public String toString() {
-		return this.day + "/" + this.month + "/" + this.year;
+      public Date(int day, int month, int year) {
+            
+            this.day=day;
+            this.month=month;
+            this.year=year;
 	}
 
 	int getDay(){
@@ -71,57 +77,66 @@ public class Date{
 		int 
 	}*/
 
+      
+
 	public String monthName() {
           
-          String monthName = " ";
+          String month = " ";
         
-        switch (month){
+        switch (this.month){
 
-        	case 1: monthName = "January";   
+        	case 1: month = "January";   
          		break;
         	
-        	case 2: monthName = "February";
+        	case 2: month = "February";
          		break;
        	
-       	case 3: monthName = "March";
+       	case 3: month = "March";
          		break;
          	
-         	case 4: monthName = "April";
+         	case 4: month = "April";
          		break;
          	
-         	case 5: monthName = "May";
+         	case 5: month = "May";
          		break;
          	
-         	case 6: monthName = "June";
+         	case 6: month = "June";
          		break;
          	
-         	case 7: monthName = "July";
+         	case 7: month = "July";
          		break;
          	
-         	case 8: monthName = "August";
+         	case 8: month = "August";
          		break;
          	
-         	case 9: monthName = "September";
+         	case 9: month = "September";
          		break;
          	
-         	case 10: monthName = "October";
+         	case 10: month = "October";
          		break;
          	
-         	case 11: monthName = "November";
+         	case 11: month = "November";
          		break;
          	
-         	case 12: monthName = "December";
+         	case 12: month = "December";
          		break;
        	
        	}
         
-      return month;
+            return month;
         
     	}
 
-    	public String monthSeason(){
+      
+      public String printMonthName(){
 
-    		String season= ("NaN");
+            return monthName();
+      }
+
+    	
+      public String monthSeason(){
+
+    		String season= (" ");
 
     		switch (month){
 
@@ -150,6 +165,146 @@ public class Date{
     		return season;
      	}
 
+      
+      public String printSeason(){
 
+            return monthSeason();
+      }
+
+     	
+      public boolean checkDay(){
+     		boolean correct=true;
+
+     		switch(this.month){
+     			
+     			case 1:
+     			case 3:
+     			case 5:
+     			case 7:
+     			case 8:
+     			case 10:
+     			case 12:    if(this.day<0 || this.day>31){
+     					      correct=false;
+                              }
+     				break;
+
+                  case 4:
+                  case 6:
+                  case 9:
+                  case 11:    if (this.day<0 || this.day>31){
+                                    correct=false;
+                              }
+                        break;
+
+                  case 2:     if (this.day<0 || this.day>28){
+                                    correct=false;
+                              }
+                        break;
+     			
+     		}
+
+            return correct;
+     	}
+
+      public int monthsLeft(){
+
+            int count = 0;
+
+            for(int i=this.getMonth(); i<12 ; i++){
+
+                  count = count + 1;
+            }
+
+            return count;
+      }
+
+      
+      public String toString() {
+            
+            return this.day + "/" + this.month + "/" + this.year;
+      }
+
+      
+      public int getNumDaysMonth(){
+
+            int daysMonth=0;
+
+            switch(month){
+
+                  case 1:
+                  case 3:
+                  case 5:
+                  case 7:
+                  case 8:
+                  case 10:
+                  case 12:    daysMonth=31;
+                        break;
+
+                  case 4:
+                  case 6:
+                  case 9:
+                  case 11:    daysMonth=30;
+                        break;
+
+                  case 2:     daysMonth=28;
+                        break;
+            }
+
+            return daysMonth;
+      }
+
+      void printMonthsSameAmountDays(){
+
+            for(int i=1;i<=12;i++){
+
+                  if(getNumDaysMonth()==getNumDaysMonth()){
+
+                        printMonthName();
+                  }
+            }
+      }
+
+      public String printDatesUntilEndMonth(){
+
+            StringBuffer printDatesUntil=new StringBuffer();
+
+            for(int i=this.day;i<=getNumDaysMonth();i++){
+
+                  printDatesUntil.append(i + "/" + getMonth() + "/" + getYear());
+            }
+
+            return printDatesUntil.toString();
+      }
+
+      public int countAllYearDaysSinceFirstOne(){
+
+            int month, counter=0;
+
+            for(int i=1;i<this.month;i++){
+                  
+                  counter=counter+getNumDaysMonth();
+            }
+            
+            counter=counter+this.day;
+            return counter;
+      }
+
+      
+      public int getNumGuess(){
+
+            int counter=0;
+            Date randomDate;
+            boolean end=false;
+            
+            while(!end){
+                  randomDate=new Date();
+                  counter++;
+                  if(this.equals(randomDate)){
+                        end=true;
+                  }
+            }
+
+            return counter;
+      }
 
 }
