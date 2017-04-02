@@ -31,12 +31,14 @@ public class Date{
             this.year=year;
 	}
 
-      public Date(int randomYear){
+      /*public Date(int randomYear){ //este constructor iría para el método getNumGuess que no funciona
             
             this.year= randomYear;
-            this.month= (int)Math.random()*(1-12)+12;
-            this.day= (int)Math.random()*(1-getNumDaysMonth(this.month))+ getNumDaysMonth(this.month);
-      }
+            int rangeMonths=(12-1)+1;
+            this.month= (int)Math.random()*(rangeMonths) + 1;
+            int rangeDays= (getNumDaysMonth(this.month) - 1) + 1;
+            this.day= (int)Math.random()*(rangeDays)+ 1 ;
+      }*/
 
 	int getDay(){
 		return this.day;
@@ -331,7 +333,7 @@ public class Date{
       }
 
       
-      public int getNumGuess(){
+      /*public int getNumGuess(){ // da siempre 0, no va
 
             int counter=0;
             Date randomDate;
@@ -346,6 +348,49 @@ public class Date{
             }
 
             return counter;
+      }*/
+
+      public int getNumGuessWhile(){
+
+            int counter=0;
+            int randomDay=0, randomMonth=0,randomYear=0;
+            
+            
+            while(!this.isSame(new Date(randomDay,randomMonth,randomYear))){
+                  
+                  randomYear = this.year;
+                  int rangeMonths=(12-1)+1;
+                  randomMonth = (int)(Math.random()*(rangeMonths)) + 1;
+                  int rangeDays= (getNumDaysMonth(randomMonth) - 1) + 1;
+                  randomDay= (int)(Math.random()*(rangeDays)) + 1 ;
+
+                  counter++;
+                  
+            }
+
+            return counter;
       }
+
+      public int getNumGuessDoWhile(){
+
+            int counter=0;
+            int randomDay=0, randomMonth=0,randomYear=0;
+
+            do{
+                  randomYear = this.year;
+                  int rangeMonths=(12-1)+1;
+                  randomMonth = (int)(Math.random()*(rangeMonths)) + 1;
+                  int rangeDays= (getNumDaysMonth(randomMonth) - 1) + 1;
+                  randomDay= (int)(Math.random()*(rangeDays)) + 1 ;
+
+                  counter++;
+
+            } while(!this.isSame(new Date(randomDay,randomMonth,randomYear)));
+
+            return counter;
+      }
+
+
+      
 
 }
