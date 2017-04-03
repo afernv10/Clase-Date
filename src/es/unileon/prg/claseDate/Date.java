@@ -7,22 +7,35 @@ public class Date{
 	private int month;
 	private int year;
 
-      public Date(){
-	//public Date(int day, int month, int year) throws DateException{
-		this.day = day;
+      
+      /**************************************************PROBLEMA**************************************************************/
+
+            // Excepciones dan error al no saber incluir todas las que me pide en los errores al compilar
+	
+      /*public Date(int day, int month, int year) throws DateException{
 		
-		/*if(month < 1 || month > 12){ // primero se hacen las comprobaciones de todo lo que puede ir mal
+            if(day < 1 || day > getNumDaysMonth(month)){
+                  throw new DateException("Day " + day + " not valid" + " possible values between 1 and 31");
+            } else {
+                  this.day = day;
+            }
+
+            
+		
+		if(month < 1 || month > 12){ // primero se hacen las comprobaciones de todo lo que puede ir mal
 			throw new DateException("Mes " + month + " no válido" +
 				" valores posibles entre 1 y 12.");
 		} else {
 			this.month = month;
-		}*/
+		}
 
-            this.month = month;
+            
 		
 		this.year = year;
-	}
-      //}
+	}*/
+      
+      /**********************************************************************************************************************/
+
 
       public Date(int day, int month, int year) {
             
@@ -30,6 +43,8 @@ public class Date{
             this.month=month;
             this.year=year;
 	}
+
+      /*********************************************************************************************************************/
 
       /*public Date(int randomYear){ //este constructor iría para el método getNumGuess que no funciona
             
@@ -39,6 +54,10 @@ public class Date{
             int rangeDays= (getNumDaysMonth(this.month) - 1) + 1;
             this.day= (int)Math.random()*(rangeDays)+ 1 ;
       }*/
+
+      /*********************************************************************************************************************/
+
+
 
 	int getDay(){
 		return this.day;
@@ -82,9 +101,8 @@ public class Date{
 		return ((this.isSameYear(another)) && (this.isSameMonth(another)) && (this.isSameDay(another)));
 	}
 
-	/*public String getMonthName(){
-		int 
-	}*/
+	
+
       public String booleanToWords(boolean checking){
 
             String toWord=" ";
@@ -295,6 +313,7 @@ public class Date{
 
                         monthsSolution.setMonth(i);
                         printMonthsSameDays.append("\n-->" + monthsSolution.printMonthName() + "\n");
+                        //printMonthsSameDays.append(monthName() + " ");
                   }
             }
 
@@ -302,7 +321,35 @@ public class Date{
       }
 
       
+      /*****************************************************PROBLEMA ENCONTRADO**********************************************/
+            /* Al añadir las excepciones me detecta errores en : Date monthsSolution=new Date(this.day,this.month,this.year);
+                  No se cómo añadir correctamente esa excepcion para solucionarlos.
+                        
+                        
+                        /*throws DateException{
+            
+                  if(day < 1 || day > getNumDaysMonth(month)){
+                        throw new DateException("Day " + day + " not valid" + " possible values between 1 and 31");
+                  } else {
+                        this.day = day;
+                  }
 
+            
+            
+                  if(month < 1 || month > 12){ // primero se hacen las comprobaciones de todo lo que puede ir mal
+                        throw new DateException("Mes " + month + " no válido" +
+                        " valores posibles entre 1 y 12.");
+                  } else {
+                        this.month = month;
+                  }
+
+            
+                  this.year = year;
+      }*/
+
+      /**************************************************************************************************************************/
+
+      
       public String printDatesUntilEndMonth(){
 
             StringBuffer printDatesUntil=new StringBuffer();
@@ -332,7 +379,9 @@ public class Date{
             return counter;
       }
 
-      
+     
+      /***************************************************PROBLEMA ENCONTRADO*****************************************************/
+
       /*public int getNumGuess(){ // da siempre 0, no va
 
             int counter=0;
@@ -349,6 +398,8 @@ public class Date{
 
             return counter;
       }*/
+
+      /**************************************************************************************************************************/
 
       public int getNumGuessWhile(){
 
@@ -388,6 +439,43 @@ public class Date{
             } while(!this.isSame(new Date(randomDay,randomMonth,randomYear)));
 
             return counter;
+      }
+
+
+      public String nameOfDay(int day){
+
+            String nameDays= " ";
+
+            switch(day){
+
+                  case 1: nameDays = "Sunday";
+                        break;
+                  case 2: nameDays = "Monday";
+                        break;
+                  case 3: nameDays = "Tuesday";
+                        break;
+                  case 4: nameDays = "Wednesday";
+                        break;
+                  case 5: nameDays = "Thursday";
+                        break;
+                  case 6: nameDays = "Friday";
+                        break;
+                  case 7: nameDays = "Saturday";
+                        break;
+                        
+                                         
+            }
+
+            return nameDays;
+      }
+
+      public String dayOfTheWeek(){
+
+            int name;
+            name = (countAllYearDaysSinceFirstOne() % 7 + day) % 7;
+
+            return nameOfDay(name);
+
       }
 
 
